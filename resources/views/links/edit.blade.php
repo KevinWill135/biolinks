@@ -24,6 +24,7 @@
             @enderror
         </div>
         <br>
+        <a href="{{ route('dashboard') }}">Cancelar</a>
         <button type="submit">Salvar</button>
     </form>
 </div>

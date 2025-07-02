@@ -1,6 +1,8 @@
 <div>
 
     <h1>Salvar Links</h1>
+    <a href="{{ route('dashboard') }}">Dashboard</a>
+    <br>
 
     @if ($message = session()->get('message'))
         <div>{{ $message }}</div>
