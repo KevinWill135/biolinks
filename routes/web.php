@@ -28,11 +28,14 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/links/create', [LinkController::class, 'create'])->name('links.create');
     Route::post('/links/create', [LinkController::class, 'store']);
-    /**Criation before edit */
-    Route::get('/links/{link}/edit', [LinkController::class, 'edit'])->name('links.edit');
-    Route::put('/links/{link}/edit', [LinkController::class, 'update']);
-    Route::delete('/links/{link}', [LinkController::class, 'destroy'])->name('links.destroy');
 
-    Route::patch('/links/{link}/down', [LinkController::class, 'down'])->name('links.down');
-    Route::patch('/links/{link}/up', [LinkController::class, 'up'])->name('links.up');
+    Route::middleware('can:update,link')->group(function () {
+        /**Criation before edit */
+        Route::get('/links/{link}/edit', [LinkController::class, 'edit'])->name('links.edit');
+        Route::put('/links/{link}/edit', [LinkController::class, 'update']);
+        Route::delete('/links/{link}', [LinkController::class, 'destroy'])->name('links.destroy');
+
+        Route::patch('/links/{link}/down', [LinkController::class, 'down'])->name('links.down');
+        Route::patch('/links/{link}/up', [LinkController::class, 'up'])->name('links.up');
+    });
 });

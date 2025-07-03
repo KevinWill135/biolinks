@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreLinkRequest;
 use App\Http\Requests\UpdateLinkRequest;
 use App\Models\Link;
-use Illuminate\Routing\Controller;
+//use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class LinkController extends Controller
@@ -61,6 +61,7 @@ class LinkController extends Controller
      */
     public function edit(Link $link)
     {
+        // $this->authorize('update', $link);
 
         //$link = Link::query()->findOrFail($id);
 
@@ -72,6 +73,10 @@ class LinkController extends Controller
      */
     public function update(UpdateLinkRequest $request, Link $link)
     {
+
+
+
+        // $this->authorize('update', $link);
         //dd($request->all(), $link);
 
         /** Update with object */
@@ -90,6 +95,8 @@ class LinkController extends Controller
      */
     public function destroy(Link $link)
     {
+        // $this->authorize('update', $link);
+
         $link->delete();
 
         return to_route('dashboard')->with('message', "Link $link->name foi deletado com sucesso");
@@ -97,35 +104,18 @@ class LinkController extends Controller
 
     public function down(Link $link)
     {
-        $order = $link->sort;
-        $newOrder = $order + 1;
+        // $this->authorize('update', $link);
 
-        /** @var User $user */
-        $user = Auth::user();
-
-        $swapWith = $user->links()->where('sort', '=', $newOrder)->first();
-
-        $link->fill(['sort' => $newOrder])->save();
-        $swapWith->fill(['sort' => $order])->save();
-
+        $link->moveDown();
 
         return back();
     }
 
     public function up(Link $link)
     {
+        // $this->authorize('update', $link);
 
-        $order = $link->sort;
-        $newOrder = $order - 1;
-
-        /** @var User $user */
-        $user = Auth::user();
-
-        $swapWith = $user->links()->where('sort', '=', $newOrder)->first();
-
-        $link->fill(['sort' => $newOrder])->save();
-        $swapWith->fill(['sort' => $order])->save();
-
+        $link->moveUp();
 
         return back();
     }
