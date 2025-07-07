@@ -5,6 +5,7 @@
     @endif
 
     <h1>Dashboard</h1>
+    <a href="{{ route('profile') }}">Atualizar Perfil</a>
 
     <a href="{{ route('links.create') }}">Criar</a>
     <br>
