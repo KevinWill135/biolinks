@@ -12,7 +12,8 @@ class BioLinksController extends Controller
     {
         //$user = User::whereHandler($handler)->firstOrFail();
         //dd($user);
-
+        
+        
         return view('bio-links', compact('user'));
     }
 }
