@@ -1,29 +1,14 @@
 <x-layout.app>
-    <div>
-        <h1>Login</h1>
-
-        @if ($message = session()->get('message'))
-            <div>{{ $message }}</div>
-            <br>
-        @endif
-        <form action="{{ route('login') }}" method="post">
-            @csrf
-
-            <div>
-                <input type="text" name="email" placeholder="email" value="{{ old('email') }}">
-                @error('email')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <br>
-            <div>
-                <input type="password" name="password" placeholder="password">
-                @error('password')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <br>
-            <button type="submit">Enviar</button>
-        </form>
-    </div>
+    <x-container>
+        <x-card title="Login">
+            <x-form :route="route('login')" method="post" id="login-form">
+                <x-input name="email" placeholder="E-Mail" value="{{ old('email') }}" />
+                <x-input name="password" type="password" placeholder="Password" />
+            </x-form>
+            <x-slot:actions>
+                <x-a :href="route('register')">Create a new account</x-a>
+                <x-button type="submit" form="login-form">Logar</x-button>
+            </x-slot:actions>
+        </x-card>
+    </x-container>
 </x-layout.app>

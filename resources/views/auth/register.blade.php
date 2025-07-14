@@ -1,42 +1,18 @@
 <x-layout.app>
-    <div>
-        {{ auth()->id() }}
 
-        <h1>Register</h1>
+    <x-container>
+        <x-card title="Register">
+            <x-form :route="route('register')" method="post" id="register-form">
+                <x-input name="name" placeholder="Name" value="{{ old('name') }}" />
+                <x-input name="email" placeholder="E-Mail" value="{{ old('email') }}" />
+                <x-input name="email_confirmation" placeholder="Email Confirmation" />
+                <x-input name="password" type="password" placeholder="Password" />
+            </x-form>
+            <x-slot:actions>
+                <x-a :href="route('login')">Back to login</x-a>
+                <x-button type="submit" form="register-form">Register</x-button>
+            </x-slot:actions>
+        </x-card>
+    </x-container>
 
-        @if ($message = session()->get('message'))
-            <div>{{ $message }}</div>
-            <br>
-        @endif
-        <form action="{{ route('register') }}" method="post">
-            @csrf
-
-            <div>
-                <input type="text" name="name" placeholder="name" value="{{ old('name') }}">
-                @error('name')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <br>
-            <div>
-                <input type="text" name="email" placeholder="email" value="{{ old('email') }}">
-                @error('email')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <br>
-            <div>
-                <input type="text" name="email_confirmation" placeholder="Email confirmation">
-            </div>
-            <br>
-            <div>
-                <input type="password" name="password" placeholder="password">
-                @error('password')
-                    <div>{{ $message }}</div>
-                @enderror
-            </div>
-            <br>
-            <button type="submit">Enviar</button>
-        </form>
-    </div>
 </x-layout.app>
