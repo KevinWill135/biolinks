@@ -1,6 +1,11 @@
 <x-layout.app>
 
     <x-container>
+        <div class="relative w-full mb-4 flex justify-center">
+            <x-button :href="route('profile')" class="absolute right-5">Update Profile</x-button>
+            <x-button :href="route('logout')">Logout</x-button>
+            <x-button :href="route('links.create')" class="absolute left-5">Create a new Link</x-button>
+        </div>
         @if ($message = session()->get('message'))
             <div>{{ $message }}</div>
             <br>
@@ -9,12 +14,6 @@
             <x-img src="/storage/{{ $user->photo }}" alt="Profile Picture" />
             <div class="font-bold text-2xl tracking-wider">{{ $user->name }}</div>
             <div class="text-sm opacity-70">{{ $user->description }}</div>
-            <div class="flex justify-between">
-                <x-a href="{{ route('profile') }}" class="link-secondary">Atualizar Perfil</x-a>
-
-                <x-a href="{{ route('links.create') }}" class="link-secondary">Criar</x-a>
-
-            </div>
         </div>
         <ul class="space-y-2 w-125">
             @foreach ($links as $link)
